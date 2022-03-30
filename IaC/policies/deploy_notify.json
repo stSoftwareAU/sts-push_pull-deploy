@@ -1,0 +1,66 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "networkInterfaces",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeInstances",
+        "ec2:AttachNetworkInterface"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ecrListImages",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:ListImages",
+        "ecr:DescribeImages"
+      ],
+      "Resource": "arn:aws:ecr:${REGION}:${ACCOUNT_ID}:repository/${AREA}/${DEPARTMENT}-*"
+    },
+    {
+      "Sid": "putAndCreateLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:${REGION}:${ACCOUNT_ID}:log-group:/aws/lambda/${DEPARTMENT}-deploy-notify:*"
+    },
+    {
+      "Sid": "createLogStream",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogStream"
+      ],
+      "Resource": "arn:aws:logs:${REGION}:${ACCOUNT_ID}:log-group:/aws/lambda/${DEPARTMENT}-deploy-notify:log-stream:*"
+    },
+    {
+      "Sid": "listTagsOnSelf",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:ListTags"
+      ],
+      "Resource": "arn:aws:lambda:${REGION}:${ACCOUNT_ID}:function:${DEPARTMENT}-deploy-notify"
+    },
+    {
+      "Sid": "fetchPrivateKey",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": "arn:aws:secretsmanager:${REGION}:${ACCOUNT_ID}:secret:DEPLOY_GIT-*"
+    },
+    {
+      "Sid": "publishSNS",
+      "Effect": "Allow",
+      "Action": [
+        "SNS:Publish"
+      ],
+      "Resource": "arn:aws:sns:${REGION}:${ACCOUNT_ID}:sts-deploy-*"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "updateAutoScale",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:UpdateAutoScalingGroup",
+        "autoscaling:DescribeAutoScalingGroups",
+        "ecr:ListImages"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "putAndCreateLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:${REGION}:${ACCOUNT_ID}:log-group:/aws/lambda/${DEPARTMENT}-deploy:*"
+    },
+    {
+      "Sid": "createLogStream",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogStream"
+      ],
+      "Resource": "arn:aws:logs:${REGION}:${ACCOUNT_ID}:log-group:/aws/lambda/${DEPARTMENT}-deploy:log-stream:*"
+    },
+    {
+      "Sid": "addTagsToMySelf",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:TagResource",
+        "lambda:ListTags"
+      ],
+      "Resource": "arn:aws:lambda:${REGION}:${ACCOUNT_ID}:function:${DEPARTMENT}-deploy"
+    },
+    {
+      "Sid": "addTagsToASG",
+      "Effect": "Allow",
+      "Action": "autoscaling:CreateOrUpdateTags",
+      "Resource": "arn:aws:autoscaling:${REGION}:${ACCOUNT_ID}:autoScalingGroup:*"
+    },
+    {
+      "Sid": "allowRefeshOfAutoScaleGroups",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:StartInstanceRefresh"
+      ],
+      "Resource": "arn:aws:autoscaling:${REGION}:${ACCOUNT_ID}:autoScalingGroup:*"
+    },
+    {
+      "Sid": "fetchConfig",
+      "Effect": "Allow",
+      "Action": [
+        "appconfig:GetConfiguration"
+      ],
+      "Resource": "arn:aws:appconfig:${REGION}:${ACCOUNT_ID}:*"
+    },
+    {
+      "Sid": "callNotify",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:InvokeFunction"
+      ],
+      "Resource": "arn:aws:lambda:${REGION}:${ACCOUNT_ID}:function:${DEPARTMENT}-deploy-notify"
+    }
+  ]
+}
