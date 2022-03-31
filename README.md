@@ -44,6 +44,6 @@ echo "Public Key"
 cat ~/.ssh/gitRS256.pub
 ```
 ## References
-https://aws.amazon.com/blogs/containers/sharing-amazon-ecr-repositories-with-multiple-accounts-using-aws-organizations/
-https://alex.kaskaso.li/post/pull-based-pipelines
-https://www.weave.works/blog/why-is-a-pull-vs-a-push-pipeline-important
+1. https://aws.amazon.com/blogs/containers/sharing-amazon-ecr-repositories-with-multiple-accounts-using-aws-organizations/
+2. https://alex.kaskaso.li/post/pull-based-pipelines
+3. https://www.weave.works/blog/why-is-a-pull-vs-a-push-pipeline-important
